@@ -92,4 +92,14 @@ trait RequirementsChecker
     {
         return stripos($_SERVER['SERVER_SOFTWARE'], 'apache');
     }
+
+    /**
+     * Get requirements check result.
+     *
+     * @return array
+     */
+    public function requirementsCheckResult(): array
+    {
+        return $this->requirementsCheckResult;
+    }
 }
