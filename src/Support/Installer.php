@@ -3,11 +3,12 @@
 namespace Rwxrwx\Installer\Support;
 
 use Rwxrwx\Installer\Support\Traits\RequirementsChecker;
+use Rwxrwx\Installer\Support\Traits\PermissionsChecker;
 use Illuminate\Support\Facades\Config;
 
 class Installer
 {
-    use RequirementsChecker;
+    use RequirementsChecker, PermissionsChecker;
 
     /**
      * Get routes definition config.

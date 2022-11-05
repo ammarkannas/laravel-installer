@@ -7,7 +7,7 @@ use Rwxrwx\Installer\Facades\Installer;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
-class ServerRequirementsController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * Show install check server requirements page.
@@ -16,7 +16,7 @@ class ServerRequirementsController extends Controller
      */
     public function show(): Renderable
     {
-        $requirements = collect(Installer::requirementsCheck()->requirementsCheckResult());
-        return view('installer::server-requirements', compact('requirements'));
+        $permissions = collect(Installer::permissionsCheck()->permissionsCheckResult());
+        return view('installer::permissions', compact('permissions'));
     }
 }

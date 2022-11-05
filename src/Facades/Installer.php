@@ -2,8 +2,8 @@
 
 namespace Rwxrwx\Installer\Facades;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\App;
 use RuntimeException;
 
 /**
@@ -13,7 +13,15 @@ use RuntimeException;
  * @method static string backof(string $key)
  * @method static string backRoute(string $key)
  * @method static string hasBack(string $step)
- * @method static array requirementsCheck()
+ * @method static \Rwxrwx\Installer\Support\Traits\RequirementsChecker  requirementsCheck()
+ * @method static \Rwxrwx\Installer\Support\Traits\RequirementsChecker checkPhpVersion(string $minimum)
+ * @method static \Rwxrwx\Installer\Support\Traits\RequirementsChecker checkApacheMods(array $modules)
+ * @method static \Rwxrwx\Installer\Support\Traits\RequirementsChecker checkPhpExtensions(array $extensions)
+ * @method static bool isApacheServer()
+ * @method static array requirementsCheckResult()
+ * @method static \Rwxrwx\Installer\Support\Traits\PermissionsChecker permissionsCheck()
+ * @method static string getPermission($folder)
+ * @method static array permissionsCheckResult()
  *
  * @see \Rwxrwx\Installer\Support\Installer
  */

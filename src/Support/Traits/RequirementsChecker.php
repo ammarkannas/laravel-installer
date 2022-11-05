@@ -17,9 +17,9 @@ trait RequirementsChecker
      * Check requirements for running application
      * @see \config('installer.requirements')
      *
-     * @return array
+     * @return self
      */
-    public function requirementsCheck(): array
+    public function requirementsCheck(): self
     {
         $this->checkPhpVersion(Config::get('installer.php-version'));
         $this->checkPhpExtensions(Config::get('installer.requirements.php-extensions'));
@@ -28,16 +28,16 @@ trait RequirementsChecker
             $this->checkApacheMods(Config::get('installer.requirements.apache-mods'));
         }
 
-        return $this->requirementsCheckResult;
+        return $this;
     }
 
     /**
      * Check php version.
      *
      * @param  string $minimum
-     * @return void
+     * @return self
      */
-    public function checkPhpVersion(string $minimum): void
+    public function checkPhpVersion(string $minimum): self
     {
         if (version_compare(phpversion(), $minimum) <= 0) {
             $this->requirementsCheckResult['phpversion'] = false;
@@ -45,15 +45,17 @@ trait RequirementsChecker
         } else {
             $this->requirementsCheckResult['phpversion'] = true;
         }
+
+        return $this;
     }
 
     /**
      * Check php extension is loaded or not.
      *
      * @param  array $extensions
-     * @return void
+     * @return self
      */
-    public function checkPhpExtensions(array $extensions): void
+    public function checkPhpExtensions(array $extensions): self
     {
         foreach ($extensions as $extension) {
             if (extension_loaded($extension)) {
@@ -64,13 +66,16 @@ trait RequirementsChecker
             $this->requirementsCheckResult[$extension] = false;
             $this->requirementsCheckResult['error'] = true;
         }
+
+        return $this;
     }
 
     /**
      * Check if apache modules loaded Apache modules
      * @param array  $modules
+     * @return  self
      */
-    public function checkApacheMods(array $modules)
+    public function checkApacheMods(array $modules): self
     {
         foreach ($modules as $module) {
             if (in_array($module, apache_get_modules())) {
@@ -81,6 +86,8 @@ trait RequirementsChecker
             $this->requirementsCheckResult[$module] = false;
             $this->requirementsCheckResult['error'] = true;
         }
+
+        return $this;
     }
 
     /**

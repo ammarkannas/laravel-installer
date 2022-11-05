@@ -9,7 +9,9 @@ Route::group(Installer::getRoutesConfig(), function () {
     Route::get('/server-requirements', [\Rwxrwx\Installer\Http\Controllers\ServerRequirementsController::class, 'show'])
         ->name('server-requirements');
 
-    Route::get('/permissions')->name('permissions');
+    Route::get('/permissions', [\Rwxrwx\Installer\Http\Controllers\PermissionsController::class, 'show'])
+        ->name('permissions');
+
     Route::get('/environment-setup')->name('environment-setup');
     Route::get('/finish')->name('finish');
 });
