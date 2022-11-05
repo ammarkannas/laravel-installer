@@ -4,7 +4,10 @@ namespace Rwxrwx\Installer\Support;
 
 use Rwxrwx\Installer\Support\Traits\RequirementsChecker;
 use Rwxrwx\Installer\Support\Traits\PermissionsChecker;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\App;
 
 class Installer
 {
@@ -82,5 +85,42 @@ class Installer
     public function hasBack($step): bool
     {
         return array_key_first(config('installer.steps')) !== $step;
+    }
+
+    /**
+     * Update .env file.
+     *
+     * @param  array  $items<string, string>
+     * @return bool|int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function updateEnvironmentFile(array $items): bool|int
+    {
+        $filesystem = new Filesystem;
+
+        $env = $filesystem->get(App::environmentFilePath());
+
+        foreach ($items as $key => $value)
+        {
+            $upperCaseKey = strtoupper($key);
+            $env = preg_replace("/{$upperCaseKey}=(.*)/", "{$upperCaseKey}={$value}", $env);
+        }
+
+        Artisan::call('key:generate');
+
+        return $filesystem->put(App::environmentFilePath(), $env);
+    }
+
+    /**
+     * Set Environment variable.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return bool|int
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function setEnvironmentVariable(string $key, string $value): bool|int
+    {
+        return $this->updateEnvironmentFile([$key => $value]);
     }
 }

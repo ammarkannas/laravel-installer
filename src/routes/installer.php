@@ -12,6 +12,9 @@ Route::group(Installer::getRoutesConfig(), function () {
     Route::get('/permissions', [\Rwxrwx\Installer\Http\Controllers\PermissionsController::class, 'show'])
         ->name('permissions');
 
-    Route::get('/environment-setup')->name('environment-setup');
+    Route::get('/environment-setup', [\Rwxrwx\Installer\Http\Controllers\EnvironmentSetupController::class, 'show'])
+        ->name('environment-setup');
+    Route::patch('/environment-setup', [\Rwxrwx\Installer\Http\Controllers\EnvironmentSetupController::class, 'store']);
+
     Route::get('/finish')->name('finish');
 });

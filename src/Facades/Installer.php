@@ -22,6 +22,8 @@ use RuntimeException;
  * @method static \Rwxrwx\Installer\Support\Traits\PermissionsChecker permissionsCheck()
  * @method static string getPermission($folder)
  * @method static array permissionsCheckResult()
+ * @method static bool|int updateEnvironmentFile(array $items)
+ * @method static bool|int setEnvironmentVariable(string $key, string $value)
  *
  * @see \Rwxrwx\Installer\Support\Installer
  */
