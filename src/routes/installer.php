@@ -16,5 +16,13 @@ Route::group(Installer::getRoutesConfig(), function () {
         ->name('environment-setup');
     Route::patch('/environment-setup', [\Rwxrwx\Installer\Http\Controllers\EnvironmentSetupController::class, 'store']);
 
+    Route::get('/database-setup', [\Rwxrwx\Installer\Http\Controllers\DatabaseSetupController::class, 'show'])
+        ->name('database-setup');
+    Route::patch('/database-setup', [\Rwxrwx\Installer\Http\Controllers\DatabaseSetupController::class, 'store']);
+
+    Route::get('/database-migrations', [\Rwxrwx\Installer\Http\Controllers\DatabaseSetupController::class, 'showMigrations'])
+        ->name('database-migrations');
+    Route::post('/database-migrations', [\Rwxrwx\Installer\Http\Controllers\DatabaseSetupController::class, 'runMigrations']);
+
     Route::get('/finish')->name('finish');
 });

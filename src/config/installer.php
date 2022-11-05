@@ -75,6 +75,8 @@ return [
 
         'middleware' => [
             'can-install' => [
+                // if file storage/installed.lock exists will abort 404
+                // and if is not exists will continue installation.
                 \Rwxrwx\Installer\Http\Middleware\CanInstall::class
             ],
             'can-update' => [
@@ -94,6 +96,8 @@ return [
         'server-requirements' => 'installer::server-requirements',
         'permissions' => 'installer::permissions',
         'environment-setup' => 'installer::environment-setup',
+        'database-setup' => 'installer::database-setup',
+        'database-migrations' => 'installer::database-migrations',
         'finish' => 'installer::finish',
     ],
 ];
