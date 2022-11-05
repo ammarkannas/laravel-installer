@@ -21,7 +21,9 @@ class RedirectIfNotInstalled
     public function handle(Request $request, Closure $next)
     {
         if (! file_exists(App::storagePath('installed.lock'))) {
-            return Redirect::route(Config::get('installer.steps')[0]);
+            $config = Config::get('installer.steps');
+            $key = array_key_first($config);
+            return Redirect::route($config[$key]);
         }
 
         return $next($request);
