@@ -45,9 +45,9 @@ return [
     |
     */
     'permissions' => [
-        'storage/framework/'     => '775',
-        'storage/logs/'          => '775',
-        'bootstrap/cache/'       => '775',
+        'storage/framework/' => '775',
+        'storage/logs/' => '775',
+        'bootstrap/cache/' => '775',
     ],
 
     /*
@@ -69,8 +69,8 @@ return [
     |
     */
     'routes' => [
-        'prefix'                   => 'install',
-        'name-prefix'              => 'installer::',
+        'prefix' => 'install',
+        'name-prefix' => 'installer::',
         'install-middleware-group' => ['can-install', 'web'],
 
         'middleware' => [
@@ -92,12 +92,12 @@ return [
     |
     */
     'steps' => [
-        'welcome'             => 'installer::welcome',
+        'welcome' => 'installer::welcome',
         'server-requirements' => 'installer::server-requirements',
-        'permissions'         => 'installer::permissions',
-        'environment-setup'   => 'installer::environment-setup',
-        'database-setup'      => 'installer::database-setup',
+        'permissions' => 'installer::permissions',
+        'environment-setup' => 'installer::environment-setup',
+        'database-setup' => 'installer::database-setup',
         'database-migrations' => 'installer::database-migrations',
-        'finish'              => 'installer::finish',
+        'finish' => 'installer::finish',
     ],
 ];

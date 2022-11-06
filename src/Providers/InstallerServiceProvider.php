@@ -17,7 +17,7 @@ class InstallerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (!file_exists(App::storagePath('installed.lock'))) {
+        if (! file_exists(App::storagePath('installed.lock'))) {
             $this->app->singleton(Installer::class, function () {
                 return new Installer();
             });
@@ -30,7 +30,7 @@ class InstallerServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param \Illuminate\Routing\Router $router
+     * @param  \Illuminate\Routing\Router  $router
      */
     public function boot(Router $router): void
     {
@@ -44,7 +44,7 @@ class InstallerServiceProvider extends ServiceProvider
      */
     private function loadConfig(): void
     {
-        if (!config('installer')) {
+        if (! config('installer')) {
             config(['installer' => require_once __DIR__.'/../config/installer.php']);
         }
     }
@@ -71,8 +71,7 @@ class InstallerServiceProvider extends ServiceProvider
     /**
      * Register installer middleware from config file.
      *
-     * @param \Illuminate\Routing\Router $router
-     *
+     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     private function registerMiddlewares(Router $router): void

@@ -24,7 +24,7 @@ trait PermissionsChecker
     public function permissionsCheck(): self
     {
         foreach (Config::get('installer.permissions') as $folder => $permission) {
-            if (!($this->getPermission($folder) >= $permission)) {
+            if (! ($this->getPermission($folder) >= $permission)) {
                 $this->permissionsCheckResult[$folder] = false;
                 $this->permissionsCheckResult['error'] = true;
                 continue;
@@ -40,7 +40,6 @@ trait PermissionsChecker
      * Get a folder permission.
      *
      * @param $folder
-     *
      * @return string
      */
     public function getPermission($folder): string

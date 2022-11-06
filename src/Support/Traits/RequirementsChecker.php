@@ -35,8 +35,7 @@ trait RequirementsChecker
     /**
      * Check php version.
      *
-     * @param string $minimum
-     *
+     * @param  string  $minimum
      * @return self
      */
     public function checkPhpVersion(string $minimum): self
@@ -54,8 +53,7 @@ trait RequirementsChecker
     /**
      * Check php extension is loaded or not.
      *
-     * @param array $extensions
-     *
+     * @param  array  $extensions
      * @return self
      */
     public function checkPhpExtensions(array $extensions): self
@@ -76,8 +74,7 @@ trait RequirementsChecker
     /**
      * Check if apache modules loaded Apache modules.
      *
-     * @param array $modules
-     *
+     * @param  array  $modules
      * @return self
      */
     public function checkApacheMods(array $modules): self

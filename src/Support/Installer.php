@@ -17,8 +17,7 @@ class Installer
     /**
      * Get routes definition config.
      *
-     * @param array|null $config
-     *
+     * @param  array|null  $config
      * @return array
      */
     public function getRoutesConfig(?array $config = null): array
@@ -26,8 +25,8 @@ class Installer
         $config = $config ?? Config::get('installer.routes');
 
         return [
-            'prefix'     => $config['prefix'],
-            'as'         => $config['name-prefix'],
+            'prefix' => $config['prefix'],
+            'as' => $config['name-prefix'],
             'middleware' => $config['install-middleware-group'],
         ];
     }
@@ -35,8 +34,7 @@ class Installer
     /**
      * Get next step by key.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return mixed
      */
     public function nextof(string $key): mixed
@@ -49,8 +47,7 @@ class Installer
     /**
      * Get next step by key.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return mixed
      */
     public function backof(string $key): mixed
@@ -64,7 +61,6 @@ class Installer
      * get next step route.
      *
      * @param $key
-     *
      * @return string
      */
     public function backRoute($key): string
@@ -76,7 +72,6 @@ class Installer
      * get next step route.
      *
      * @param $key
-     *
      * @return string
      */
     public function nextRoute($key): string
@@ -88,7 +83,6 @@ class Installer
      * check if step has back step.
      *
      * @param $step
-     *
      * @return bool
      */
     public function hasBack($step): bool
@@ -99,11 +93,10 @@ class Installer
     /**
      * Update .env file.
      *
-     * @param array $items<string, string>
+     * @param  array  $items<string,  string>
+     * @return bool|int
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return bool|int
      */
     public function updateEnvironmentFile(array $items): bool|int
     {
@@ -124,12 +117,11 @@ class Installer
     /**
      * Set Environment variable.
      *
-     * @param string $key
-     * @param string $value
+     * @param  string  $key
+     * @param  string  $value
+     * @return bool|int
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return bool|int
      */
     public function setEnvironmentVariable(string $key, string $value): bool|int
     {
