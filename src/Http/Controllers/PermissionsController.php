@@ -3,9 +3,8 @@
 namespace Rwxrwx\Installer\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Rwxrwx\Installer\Facades\Installer;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
+use Rwxrwx\Installer\Facades\Installer;
 
 class PermissionsController extends Controller
 {
@@ -17,6 +16,7 @@ class PermissionsController extends Controller
     public function show(): Renderable
     {
         $permissions = collect(Installer::permissionsCheck()->permissionsCheckResult());
+
         return view('installer::permissions', compact('permissions'));
     }
 }

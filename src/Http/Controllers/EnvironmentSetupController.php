@@ -4,11 +4,11 @@ namespace Rwxrwx\Installer\Http\Controllers;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Renderable;
-use Rwxrwx\Installer\Facades\Installer;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Controller;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Rwxrwx\Installer\Facades\Installer;
 
 class EnvironmentSetupController extends Controller
 {
@@ -25,7 +25,8 @@ class EnvironmentSetupController extends Controller
     /**
      * update environment (.env) file.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request): RedirectResponse|Response
@@ -36,13 +37,15 @@ class EnvironmentSetupController extends Controller
     /**
      * update environment (.env) file.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param string $step
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $step
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     private function updateEnvironment(Request $request, string $step): RedirectResponse|Response
     {
         $errors = [];
+
         try {
             if (Installer::updateEnvironmentFile($request->toArray()) !== false) {
                 return redirect(Installer::nextRoute($step));
@@ -50,7 +53,7 @@ class EnvironmentSetupController extends Controller
 
             $errors = ['unexpected' => __('An unexpected error has occurred')];
         } catch (FileNotFoundException $fileNotFoundException) {
-            $errors = ['file-not-found' => __('.env file not found'),];
+            $errors = ['file-not-found' => __('.env file not found')];
         }
 
         return redirect()->back()->withInput($request->toArray())

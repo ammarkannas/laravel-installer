@@ -3,9 +3,8 @@
 namespace Rwxrwx\Installer\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Rwxrwx\Installer\Facades\Installer;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
+use Rwxrwx\Installer\Facades\Installer;
 
 class ServerRequirementsController extends Controller
 {
@@ -17,6 +16,7 @@ class ServerRequirementsController extends Controller
     public function show(): Renderable
     {
         $requirements = collect(Installer::requirementsCheck()->requirementsCheckResult());
+
         return view('installer::server-requirements', compact('requirements'));
     }
 }
