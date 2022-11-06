@@ -2,10 +2,11 @@
 
 namespace Rwxrwx\Installer\Providers;
 
-use Illuminate\Support\Facades\{Config, App};
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Rwxrwx\Installer\Support\Installer;
-use Illuminate\Routing\Router;
 
 class InstallerServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class InstallerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (! file_exists(App::storagePath('installed.lock'))) {
+        if (!file_exists(App::storagePath('installed.lock'))) {
             $this->app->singleton(Installer::class, function () {
                 return new Installer();
             });
@@ -29,7 +30,7 @@ class InstallerServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
      */
     public function boot(Router $router): void
     {
@@ -43,7 +44,7 @@ class InstallerServiceProvider extends ServiceProvider
      */
     private function loadConfig(): void
     {
-        if (! config('installer')) {
+        if (!config('installer')) {
             config(['installer' => require_once __DIR__.'/../config/installer.php']);
         }
     }
@@ -70,12 +71,13 @@ class InstallerServiceProvider extends ServiceProvider
     /**
      * Register installer middleware from config file.
      *
-     * @param \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     private function registerMiddlewares(Router $router): void
     {
-        foreach (Config::get('installer.routes.middleware') as $name => $middleware ) {
+        foreach (Config::get('installer.routes.middleware') as $name => $middleware) {
             $router->middlewareGroup($name, $middleware);
         }
     }

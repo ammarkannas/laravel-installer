@@ -6,15 +6,15 @@ use Illuminate\Console\BufferedConsoleOutput;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Rwxrwx\Installer\Facades\Installer;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class DatabaseSetupController extends Controller
 {
@@ -26,10 +26,10 @@ class DatabaseSetupController extends Controller
     public function show(): Renderable
     {
         $supportedDatabases = [
-            'Sqlite' => 'sqlite',
-            'Mysql' => 'mysql',
-            'PostgreSQL' => 'pgsql',
-            'Microsoft SQL Server' => 'sqlsrv'
+            'Sqlite'               => 'sqlite',
+            'Mysql'                => 'mysql',
+            'PostgreSQL'           => 'pgsql',
+            'Microsoft SQL Server' => 'sqlsrv',
         ];
 
         return view('installer::database-setup', compact('supportedDatabases'));
@@ -38,7 +38,8 @@ class DatabaseSetupController extends Controller
     /**
      * store database setup in (.env) file.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request): RedirectResponse|Response
@@ -63,13 +64,15 @@ class DatabaseSetupController extends Controller
     /**
      * update environment (.env) file.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param string $step
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $step
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     private function updateEnvironment(Request $request, string $step): RedirectResponse|Response
     {
         $errors = [];
+
         try {
             if (Installer::updateEnvironmentFile($request->toArray()) !== false) {
                 return redirect(Installer::nextRoute($step));
@@ -77,7 +80,7 @@ class DatabaseSetupController extends Controller
 
             $errors = ['unexpected' => __('An unexpected error has occurred')];
         } catch (FileNotFoundException $fileNotFoundException) {
-            $errors = ['file-not-found' => __('.env file not found'),];
+            $errors = ['file-not-found' => __('.env file not found')];
         }
 
         return redirect()->back()->withInput($request->toArray())
@@ -97,7 +100,8 @@ class DatabaseSetupController extends Controller
     /**
      * run database migrations script.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function runMigrations(Request $request): JsonResponse|RedirectResponse
