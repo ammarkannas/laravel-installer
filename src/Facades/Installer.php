@@ -40,12 +40,11 @@ class Installer extends Facade
     /**
      * Handle dynamic, static calls to the object.
      *
-     * @param string $method
-     * @param array  $args
+     * @param  string  $method
+     * @param  array  $args
+     * @return mixed
      *
      * @throws \RuntimeException
-     *
-     * @return mixed
      */
     public static function __callStatic($method, $args)
     {
@@ -55,7 +54,7 @@ class Installer extends Facade
 
         $instance = static::getFacadeRoot();
 
-        if (!$instance) {
+        if (! $instance) {
             throw new RuntimeException('A facade root has not been set.');
         }
 

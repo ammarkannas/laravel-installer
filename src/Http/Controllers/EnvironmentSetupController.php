@@ -25,8 +25,7 @@ class EnvironmentSetupController extends Controller
     /**
      * update environment (.env) file.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request): RedirectResponse|Response
@@ -37,9 +36,8 @@ class EnvironmentSetupController extends Controller
     /**
      * update environment (.env) file.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $step
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $step
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     private function updateEnvironment(Request $request, string $step): RedirectResponse|Response
